@@ -1,5 +1,4 @@
-﻿using System;
-using MarsRoverChallenge.Commands;
+﻿using MarsRoverChallenge.Commands;
 
 namespace MarsRoverChallenge
 {

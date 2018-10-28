@@ -2,14 +2,12 @@
 {
     class MoveCommand : ICommand
     {
-        private Rover _rover;
-        private char _instruction;
-        private int[] _dimentions;
+        private readonly Rover _rover;
+        private readonly int[] _dimentions;
 
-        public MoveCommand(Rover rover, int[] dimentions, char instruction)
+        public MoveCommand(Rover rover, int[] dimentions)
         {
             _rover = rover;
-            _instruction = instruction;
             _dimentions = dimentions;
         }
 

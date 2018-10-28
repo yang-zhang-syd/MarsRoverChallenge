@@ -2,13 +2,11 @@
 {
     public class TurnCommand : ICommand
     {
-        private Rover _rover;
-        private char _instruction;
+        private readonly Rover _rover;
 
-        public TurnCommand(Rover rover, char instruction)
+        public TurnCommand(Rover rover)
         {
             _rover = rover;
-            _instruction = instruction;
         }
 
         public void Run(char instruction)

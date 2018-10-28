@@ -6,8 +6,8 @@ namespace MarsRoverChallenge.Commands
 {
     public class RoverCommandFactory
     {
-        private Rover _rover;
-        private int[] _dimentions;
+        private readonly Rover _rover;
+        private readonly int[] _dimentions;
 
         public RoverCommandFactory(Rover rover, int[] dimentions)
         {
@@ -19,11 +19,11 @@ namespace MarsRoverChallenge.Commands
         {
             if (instruction == 'M')
             {
-                return new MoveCommand(_rover, _dimentions, instruction);
+                return new MoveCommand(_rover, _dimentions);
             }
             else if (instruction == 'L' || instruction == 'R')
             {
-                return new TurnCommand(_rover, instruction);
+                return new TurnCommand(_rover);
             }
 
             return null;

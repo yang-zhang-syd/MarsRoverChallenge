@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MarsRoverChallenge.Commands
+﻿namespace MarsRoverChallenge.Commands
 {
     public interface ICommand
     {
