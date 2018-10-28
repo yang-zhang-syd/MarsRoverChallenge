@@ -1,4 +1,5 @@
 ﻿using System;
+using MarsRoverChallenge.Commands;
 
 namespace MarsRoverChallenge
 {
@@ -8,6 +9,7 @@ namespace MarsRoverChallenge
         private readonly int[] _dimentions;
 
         private int _facingDirectionIndex;
+        private RoverCommandFactory _roverCommandFactory;
 
         public Rover(int x, int y, char facing, int[] dimentions)
         {
@@ -17,11 +19,12 @@ namespace MarsRoverChallenge
             _dimentions = dimentions;
 
             _facingDirectionIndex = _directions.IndexOf(facing);
+            _roverCommandFactory = new RoverCommandFactory(this, dimentions);
         }
 
-        public int X { get; private set; }
-        public int Y { get; private set; }
-        public char Facing { get; private set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char Facing { get; set; }
 
         /// <summary>
         /// If set to true, rover will not go beyond boundries defined by dimensions.
@@ -30,57 +33,27 @@ namespace MarsRoverChallenge
 
         public void Run(char instruction)
         {
-            if (instruction == 'M')
-            {
-                moveOneStep();
-            }
-            else if (instruction == 'L' || instruction == 'R')
-            {
-                turn(instruction);
-            }
-            else
-            {
-                Console.WriteLine("Unknown Instruction Received.");
-            }
+            var command = _roverCommandFactory.GetCommand(instruction);
+            command.Run(instruction);
         }
 
-        private void moveOneStep()
-        {
-            if (Facing == 'N' && (Y + 1 <= _dimentions[1] || !AvoidGoBeyondBoundaries))
-            {
-                Y += 1;
-            }
-            else if (Facing == 'S' && (Y - 1 >= 0 || !AvoidGoBeyondBoundaries))
-            {
-                Y -= 1;
-            }
-            else if (Facing == 'E' && (X + 1 <= _dimentions[0] || !AvoidGoBeyondBoundaries))
-            {
-                X += 1;
-            }
-            else if (Facing == 'W' && (X - 1 >= 0 || !AvoidGoBeyondBoundaries))
-            {
-                X -= 1;
-            }
-        }
-
-        private void turn(char instruction)
+        public void TurnLeft()
         {
             var length = _directions.Length;
+            _facingDirectionIndex = (_facingDirectionIndex - 1) % length;
 
-            if (instruction == 'L')
+            if (_facingDirectionIndex < 0)
             {
-                _facingDirectionIndex = (_facingDirectionIndex - 1) % length;
+                _facingDirectionIndex += length;
+            }
 
-                if (_facingDirectionIndex < 0)
-                {
-                    _facingDirectionIndex += length;
-                }
-            }
-            else if (instruction == 'R')
-            {
-                _facingDirectionIndex = (_facingDirectionIndex + 1) % length;
-            }
+            Facing = _directions[_facingDirectionIndex];
+        }
+
+        public void TurnRight()
+        {
+            var length = _directions.Length;
+            _facingDirectionIndex = (_facingDirectionIndex + 1) % length;
 
             Facing = _directions[_facingDirectionIndex];
         }
