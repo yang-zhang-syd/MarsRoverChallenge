@@ -4,18 +4,16 @@ namespace MarsRoverChallenge
 {
     public class Rover
     {
-        private readonly string _directions = "NESW";
-        private readonly int[] _dimentions;
+        private const string _directions = "NESW";
+        private readonly RoverCommandFactory _roverCommandFactory;
 
         private int _facingDirectionIndex;
-        private RoverCommandFactory _roverCommandFactory;
 
         public Rover(int x, int y, char facing, int[] dimentions)
         {
             X = x;
             Y = y;
             Facing = facing;
-            _dimentions = dimentions;
 
             _facingDirectionIndex = _directions.IndexOf(facing);
             _roverCommandFactory = new RoverCommandFactory(this, dimentions);
@@ -23,7 +21,7 @@ namespace MarsRoverChallenge
 
         public int X { get; set; }
         public int Y { get; set; }
-        public char Facing { get; set; }
+        public char Facing { get; private set; }
 
         /// <summary>
         /// If set to true, rover will not go beyond boundries defined by dimensions.
