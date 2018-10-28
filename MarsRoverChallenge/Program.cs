@@ -13,6 +13,11 @@ namespace MarsRoverChallenge
             while (!string.IsNullOrEmpty(roverInfo = Console.ReadLine()))
             {
                 var commands = Console.ReadLine();
+                if (string.IsNullOrEmpty(commands))
+                {
+                    break;
+                }
+
                 var roverInfoArray = roverInfo.Trim().Split(' ');
 
                 var rover = new Rover(Convert.ToInt32(roverInfoArray[0]), Convert.ToInt32(roverInfoArray[1]), Convert.ToChar(roverInfoArray[2]), dimentions);
