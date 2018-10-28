@@ -34,7 +34,7 @@ namespace MarsRoverChallenge
         public void Run(char instruction)
         {
             var command = _roverCommandFactory.GetCommand(instruction);
-            command.Run(instruction);
+            command?.Run(instruction);
         }
 
         public void TurnLeft()
